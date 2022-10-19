@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewData["Title"] = "Cookie visualizer";
+}
+
+<div>
+    <h1>Cookie visualizer</h1>
+    @{
+        @if (Context.Request.Cookies.Count == 0)
+        {
+            <h3>No cookies</h3>
+        }
+        else
+        {
+            @foreach (var cookie in Context.Request.Cookies)
+            {
+                <p><b>@cookie.Key</b> = @cookie.Value @Html.ActionLink("delete", "DeleteCookie", new { cookiename = @cookie.Key })</p>
+            }
+        }
+        
+            <form method="post" action="/Home/CreateCookie">
+                <h2>Create new cookie</h2>
+                <label for="CookieName">New cookie name</label>
+                <input name="CookieName" type="text" />
+                <br /><label for="CookieValue">New cookie value</label>
+                <input name="CookieValue" type="text" />
+                <br /><input type="submit" value="Add cookie" />
+            </form>
+    }
+</div>
